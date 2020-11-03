@@ -4,11 +4,17 @@ import datetime
 from jinja2 import Template
 # import gzip
 
+url = 'https://part4.info/static/sitemap/'
+path = '/var/www/part4_project/static/sitemap/'
+
 
 def save_main_sitemap():
     ignore_name = ['sitemap.xml']
-    results = list(set(listdir("site")) - set(ignore_name))
-    new_df = gen_sitemap(results)
+    results = list(set(listdir(path)) - set(ignore_name))
+    res = []
+    for r in results:
+        res.append(url + r)
+    new_df = gen_sitemap(res)
 
     sitemap_template = '''<?xml version="1.0" encoding="UTF-8"?>
             <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -31,7 +37,7 @@ def save_main_sitemap():
         i.loc[:, 'priority'] = '1.0'
         sitemap_output = template.render(pages=i.itertuples())
         # /var/www/part4_project/
-        filename = '/var/www/part4_project/sitemap.xml'
+        filename = path + 'sitemap.xml'
 
         with open(filename, 'wt') as f:
             f.write(sitemap_output)
@@ -54,7 +60,7 @@ def save_sitemap(file_name, list_of_urls):
     for i in new_df:
         sitemap_output = template.render(pages=i.itertuples())
         # filename = file_name + str(i.iloc[0, 1]) + '.xml.gz'
-        filename = '/var/www/part4_project/' + file_name + str(i.iloc[0, 1]) + '.xml'
+        filename = path + file_name + str(i.iloc[0, 1]) + '.xml'
         # with gzip.open(filename, 'wt') as f:
         with open(filename, 'wt') as f:
             f.write(sitemap_output)
