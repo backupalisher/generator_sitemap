@@ -56,8 +56,23 @@ def check_list(xid, models_list):
 
 
 if __name__ == '__main__':
-    start_time = datetime.now() # start
+    start_time = datetime.now()  # start
     print(start_time)
+
+    MATERIALIZED_LIST = ['REFRESH MATERIALIZED VIEW "all_brand_models";',
+                         'REFRESH MATERIALIZED VIEW "all_cartridge";',
+                         'REFRESH MATERIALIZED VIEW "all_details";',
+                         'REFRESH MATERIALIZED VIEW "all_errors";',
+                         'REFRESH MATERIALIZED VIEW "all_models";',
+                         'REFRESH MATERIALIZED VIEW "all_options_for_cartridges";',
+                         'REFRESH MATERIALIZED VIEW "all_options_for_details";',
+                         'REFRESH MATERIALIZED VIEW "all_options_model";',
+                         'REFRESH MATERIALIZED VIEW "all_partcatalog";',
+                         'REFRESH MATERIALIZED VIEW "model_for_filter";',
+                         'REFRESH MATERIALIZED VIEW "search_cartridge";',
+                         'REFRESH MATERIALIZED VIEW "search_detail_index";',
+                         'REFRESH MATERIALIZED VIEW "search_error";',
+                         'REFRESH MATERIALIZED VIEW "search_index";']
 
     n_time = datetime.now()
     print('models', n_time)
@@ -84,5 +99,9 @@ if __name__ == '__main__':
     print(datetime.now() - n_time)
 
     file_utils.save_main_sitemap()
-    db_utils.update_material_view()
-    print(datetime.now() - start_time) # end
+
+    for i in MATERIALIZED_LIST:
+        print(i)
+        db_utils.update_material_view(i)
+
+    print(datetime.now() - start_time)  # end

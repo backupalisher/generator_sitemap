@@ -53,18 +53,6 @@ def check_supplies(model_id):
         return False
 
 
-def update_material_view():
-    db.i_request(f'REFRESH MATERIALIZED VIEW "all_brand_models"; '
-                 f'REFRESH MATERIALIZED VIEW "all_cartridge"; '
-                 f'REFRESH MATERIALIZED VIEW "all_details"; '
-                 f'REFRESH MATERIALIZED VIEW "all_errors"; '
-                 f'REFRESH MATERIALIZED VIEW "all_models"; '
-                 f'REFRESH MATERIALIZED VIEW "all_options_for_cartridges"; '
-                 f'REFRESH MATERIALIZED VIEW "all_options_for_details"; '
-                 f'REFRESH MATERIALIZED VIEW "all_options_model"; '
-                 f'REFRESH MATERIALIZED VIEW "all_partcatalog"; '
-                 f'REFRESH MATERIALIZED VIEW "model_for_filter"; '
-                 f'REFRESH MATERIALIZED VIEW "search_cartridge"; '
-                 f'REFRESH MATERIALIZED VIEW "search_detail_index"; '
-                 f'REFRESH MATERIALIZED VIEW "search_error"; '
-                 f'REFRESH MATERIALIZED VIEW "search_index";')
+def update_material_view(q):
+    return db.i_request(f'{q}')
+
