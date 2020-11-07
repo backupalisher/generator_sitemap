@@ -84,4 +84,5 @@ if __name__ == '__main__':
     print(datetime.now() - n_time)
 
     file_utils.save_main_sitemap()
+    db_utils.update_material_view()
     print(datetime.now() - start_time) # end
