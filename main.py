@@ -6,7 +6,7 @@ import network_utils
 
 url_model = 'https://part4.info/model/'
 url_detail = 'https://part4.info/detail/'
-url_supplies = 'https://part4.info/cartridge/'
+url_supplies = 'https://part4.info/supplies/'
 
 
 def gen_model():
@@ -31,7 +31,8 @@ def gen_model():
 
 def gen_details():
     list_of_urls = []
-    results = list(set(db_utils.get_id('details')) - set(db_utils.get_model_id_from_details()))
+    # results = list(set(db_utils.get_id('details')) - set(db_utils.get_model_id_from_details()))
+    results = list(set(db_utils.get_id('partcodes')))
     for res in results:
         print(f'\r', res[0], end='')
         list_of_urls.append(f'{url_detail}{res[0]}')
@@ -59,20 +60,36 @@ if __name__ == '__main__':
     start_time = datetime.now()  # start
     print(start_time)
 
-    MATERIALIZED_LIST = ['REFRESH MATERIALIZED VIEW "all_brand_models";',
-                         'REFRESH MATERIALIZED VIEW "all_cartridge";',
-                         'REFRESH MATERIALIZED VIEW "all_details";',
-                         'REFRESH MATERIALIZED VIEW "all_errors";',
-                         'REFRESH MATERIALIZED VIEW "all_models";',
-                         'REFRESH MATERIALIZED VIEW "all_options_for_cartridges";',
-                         'REFRESH MATERIALIZED VIEW "all_options_for_details";',
-                         'REFRESH MATERIALIZED VIEW "all_options_model";',
-                         'REFRESH MATERIALIZED VIEW "all_partcatalog";',
-                         'REFRESH MATERIALIZED VIEW "model_for_filter";',
-                         'REFRESH MATERIALIZED VIEW "search_cartridge";',
-                         'REFRESH MATERIALIZED VIEW "search_detail_index";',
-                         'REFRESH MATERIALIZED VIEW "search_error";',
-                         'REFRESH MATERIALIZED VIEW "search_index";']
+    # MATERIALIZED_LIST = ['REFRESH MATERIALIZED VIEW "public"."all_options_for_details";',
+    #                      'REFRESH MATERIALIZED VIEW "all_cartridge";',
+    #                      'REFRESH MATERIALIZED VIEW "all_details";',
+    #                      'REFRESH MATERIALIZED VIEW "all_errors";',
+    #                      'REFRESH MATERIALIZED VIEW "all_models";',
+    #                      'REFRESH MATERIALIZED VIEW "all_options_for_cartridges";',
+    #                      'REFRESH MATERIALIZED VIEW "all_options_for_details";',
+    #                      'REFRESH MATERIALIZED VIEW "all_options_model";',
+    #                      'REFRESH MATERIALIZED VIEW "all_partcatalog";',
+    #                      'REFRESH MATERIALIZED VIEW "model_for_filter";',
+    #                      'REFRESH MATERIALIZED VIEW "search_cartridge";',
+    #                      'REFRESH MATERIALIZED VIEW "search_detail_index";',
+    #                      'REFRESH MATERIALIZED VIEW "search_error";',
+    #                      'REFRESH MATERIALIZED VIEW "search_index";']
+    MATERIALIZED_LIST = ['REFRESH MATERIALIZED VIEW "public"."all_options_for_details";',
+                         'REFRESH MATERIALIZED VIEW "public"."all_brand_models";',
+                         'REFRESH MATERIALIZED VIEW "public"."all_cartridge";',
+                         'REFRESH MATERIALIZED VIEW "public"."all_details";',
+                         'REFRESH MATERIALIZED VIEW "public"."all_errors";',
+                         'REFRESH MATERIALIZED VIEW "public"."all_models";',
+                         'REFRESH MATERIALIZED VIEW "public"."all_options_for_cartridges";',
+                         'REFRESH MATERIALIZED VIEW "public"."all_options_model";',
+                         'REFRESH MATERIALIZED VIEW "public"."all_partcatalog";',
+                         'REFRESH MATERIALIZED VIEW "public"."all_partcodes";',
+                         'REFRESH MATERIALIZED VIEW "public"."model_for_filter";',
+                         'REFRESH MATERIALIZED VIEW "public"."search_cartridge";',
+                         'REFRESH MATERIALIZED VIEW "public"."search_detail_index";',
+                         'REFRESH MATERIALIZED VIEW "public"."search_error";',
+                         'REFRESH MATERIALIZED VIEW "public"."search_index";',
+                         'REFRESH MATERIALIZED VIEW "public"."full_partcodes";']
 
     n_time = datetime.now()
     print('models', n_time)
